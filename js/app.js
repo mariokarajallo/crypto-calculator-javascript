@@ -80,12 +80,15 @@ function consultarAPI() {
 
   const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${crypto}&tsyms=${coin}`;
 
+  mostrarSpinner();
+
   fetch(url)
     .then((response) => response.json())
     .then((result) => mostrarCotizacion(result.DISPLAY[crypto][coin]));
 }
 
 function mostrarCotizacion(cotizacion) {
+  limpiarHTML();
   const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, LASTUPDATE } = cotizacion;
 
   const precio = document.createElement("P");
@@ -110,3 +113,11 @@ function mostrarCotizacion(cotizacion) {
   resultado.appendChild(cambioPorcentaje);
   resultado.appendChild(ultimoCambio);
 }
+
+function limpiarHTML() {
+  while (resultado.firstChild) {
+    resultado.removeChild(resultado.firstChild);
+  }
+}
+
+function mostrarSpinner() {}
