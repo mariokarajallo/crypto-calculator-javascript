@@ -18,3 +18,14 @@ function consultarCrypto() {
     .then((result) => obtenerCrypto(result.Data))
     .then((crypto) => selectCrypto(crypto));
 }
+
+function selectCrypto(crypto) {
+  crypto.forEach((coin) => {
+    const { Name, FullName } = coin.CoinInfo;
+
+    const option = document.createElement("OPTION");
+    option.value = Name;
+    option.textContent = FullName;
+    cryptoSelect.appendChild(option);
+  });
+}
