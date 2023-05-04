@@ -53,7 +53,22 @@ function enviarFormulario(e) {
   //validar
   const { coin, crypto } = objCrypto;
   if (coin === "" || crypto === "") {
-    console.log("incompleto");
+    mostrarAlerta("Ambos campos son obligatorios");
     return;
+  }
+}
+
+function mostrarAlerta(msg) {
+  const existeError = document.querySelector(".error");
+  if (!existeError) {
+    const divMensaje = document.createElement("DIV");
+    divMensaje.classList.add("error");
+    divMensaje.textContent = msg;
+
+    formulario.appendChild(divMensaje);
+
+    setTimeout(() => {
+      formulario.removeChild(divMensaje);
+    }, 3000);
   }
 }
