@@ -56,6 +56,8 @@ function enviarFormulario(e) {
     mostrarAlerta("Ambos campos son obligatorios");
     return;
   }
+
+  consultarAPI();
 }
 
 function mostrarAlerta(msg) {
@@ -71,4 +73,17 @@ function mostrarAlerta(msg) {
       formulario.removeChild(divMensaje);
     }, 3000);
   }
+}
+function consultarAPI() {
+  const { coin, crypto } = objCrypto;
+
+  const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${crypto}&tsyms=${coin}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((result) => mostrarCotizacion(result.DISPLAY[crypto][coin]));
+}
+
+function mostrarCotizacion(cotizacion) {
+  console.log(cotizacion);
 }
