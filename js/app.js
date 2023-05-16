@@ -21,13 +21,23 @@ const obtenerCrypto = (crypto) =>
     resolve(crypto);
   });
 
-function consultarCrypto() {
+async function consultarCrypto() {
   const url = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD`;
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((result) => obtenerCrypto(result.Data))
-    .then((crypto) => selectCrypto(crypto));
+  // fetch(url)
+  //   .then((response) => response.json())
+  //   .then((result) => obtenerCrypto(result.Data))
+  //   .then((crypto) => selectCrypto(crypto));
+
+  // Implementando Async Await
+  try {
+    const response = await fetch(url);
+    const result = await response.json();
+    const crypto = await obtenerCrypto(result.Data);
+    selectCrypto(crypto);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function selectCrypto(crypto) {
